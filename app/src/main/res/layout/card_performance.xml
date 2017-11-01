@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingTop="20dp"
+    android:background="#fff"
+    android:paddingRight="16dp"
+    android:paddingBottom="20dp"
+    android:paddingLeft="16dp">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,38 +28,34 @@
             android:paddingRight="4dp"
             android:textSize="16dp"
             android:text="You have shown 12.4% improvement in score over last 5 test"/>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_weight="1"
-    android:paddingLeft="20dp">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Performance"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="32dp"
-            android:id="@+id/tvPerformanceInPercent"
-            android:paddingRight="4dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:paddingLeft="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Performance"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="32dp"
+                    android:id="@+id/tvPerformanceInPercent"
+                    android:paddingRight="4dp"
+                    android:textColor="#000"
+                    android:text="12.4%"/>
 
-            android:text="12.4%"/>
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:background="@drawable/arrowtop"/>
-
-
-
-    </LinearLayout>
-</LinearLayout>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/arrowtop"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
