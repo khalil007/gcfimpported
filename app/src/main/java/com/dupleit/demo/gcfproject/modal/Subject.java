@@ -15,6 +15,9 @@ public class Subject {
     @SerializedName("sub_name")
     @Expose
     private String subName;
+    @SerializedName("status")
+    @Expose
+    private String status;
 
     public Subject(String subId, String subImg, String subName, String status) {
         this.subId = subId;
@@ -22,10 +25,6 @@ public class Subject {
         this.subName = subName;
         this.status = status;
     }
-
-    @SerializedName("status")
-    @Expose
-    private String status;
 
     public String getSubId() {
         return subId;

@@ -19,6 +19,9 @@ public class UserData {
     @SerializedName("userShow")
     @Expose
     private UserShow userShow;
+    @SerializedName("VideoAll")
+    @Expose
+    private List<VideoAll> videoAll = null;
 
     public List<Subject> getSubject() {
         return subject;
@@ -50,6 +53,14 @@ public class UserData {
 
     public void setUserShow(UserShow userShow) {
         this.userShow = userShow;
+    }
+
+    public List<VideoAll> getVideoAll() {
+        return videoAll;
+    }
+
+    public void setVideoAll(List<VideoAll> videoAll) {
+        this.videoAll = videoAll;
     }
 
 }

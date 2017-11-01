@@ -69,7 +69,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
+            android:id="@+id/linearyoutube">
+            <include layout="@layout/youtube_card" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
             android:id="@+id/linearPerformance">
+
             <include layout="@layout/card_performance" />
 
         </LinearLayout>

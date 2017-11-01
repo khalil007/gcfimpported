@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GCF project</string>
+    <string name="error_player">There was an error initializing the YouTubePlayer</string>
 </resources>

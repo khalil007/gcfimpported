@@ -1,10 +1,12 @@
 package com.dupleit.demo.gcfproject;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
@@ -16,11 +18,19 @@ import android.widget.Toast;
 
 import com.dupleit.demo.gcfproject.Network.APIService;
 import com.dupleit.demo.gcfproject.Network.ApiClient;
+import com.dupleit.demo.gcfproject.adapter.VideoListAdapter;
 import com.dupleit.demo.gcfproject.adapter.subjectListAdapter;
+import com.dupleit.demo.gcfproject.helper.Config;
 import com.dupleit.demo.gcfproject.helper.GridSpacingItemDecoration;
 import com.dupleit.demo.gcfproject.helper.checkInternetState;
 import com.dupleit.demo.gcfproject.modal.Subject;
 import com.dupleit.demo.gcfproject.modal.UserUImodel;
+import com.dupleit.demo.gcfproject.modal.VideoAll;
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
+
 
 import java.util.ArrayList;
 
@@ -30,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
 
     @BindView(R.id.linearSubjects)
     LinearLayout linearSubjects;
@@ -41,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.linearPerformance)
     LinearLayout linearPerformance;
 
-    @BindView(R.id.linearQuiz)
-    LinearLayout linearQuiz;
-
     @BindView(R.id.recyclerSubjects)
     RecyclerView recyclerSubjects;
     GridLayoutManager gridLayout;
@@ -51,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.tvPerformanceInPercent)
     TextView tvPerformanceInPercent;
+
+    @BindView(R.id.youtube_view)
+    YouTubePlayerView youTubeView;
+    private static final int RECOVERY_DIALOG_REQUEST = 1;
+
+    @BindView(R.id.linearQuiz)
+    LinearLayout linearQuiz;
 
     @BindView(R.id.textLine) TextView textLine;
     @BindView(R.id.quizQus) TextView quizQus;
@@ -69,8 +83,15 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.quizSubjectName)
     TextView quizSubjectName;
 
-
     ArrayList<Subject> subjectArrayList = new ArrayList<>();
+
+    @BindView(R.id.recyclerImages)
+    RecyclerView recyclerImages;
+    ArrayList<VideoAll> videoArrayList= new ArrayList<>();
+    VideoListAdapter videoListAdapter;
+    @BindView(R.id.linearImages)
+    LinearLayout linearImages;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +105,55 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new subjectListAdapter(getApplicationContext(), subjectArrayList);
         recyclerSubjects.setAdapter(mAdapter);
 
+        youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
+
+        // Initializing video player with developer key
+        youTubeView.initialize(Config.DEVELOPER_KEY, this);
+
+        videoListAdapter = new VideoListAdapter(getApplicationContext(),videoArrayList);
+
+        recyclerImages.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
+        recyclerImages.setHasFixedSize(true);
+        recyclerImages.setAdapter(videoListAdapter);
         LoadUiData();
+    }
+
+
+    @Override
+    public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                        YouTubeInitializationResult errorReason) {
+        if (errorReason.isUserRecoverableError()) {
+            errorReason.getErrorDialog(this, RECOVERY_DIALOG_REQUEST).show();
+        } else {
+            //  String errorMessage = String.format(getString(R.string.error_player), errorReason.toString());
+            Toast.makeText(this, "Not initialised", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider,
+                                        YouTubePlayer player, boolean wasRestored) {
+        if (!wasRestored) {
+
+            // loadVideo() will auto play video
+            // Use cueVideo() method, if you don't want to play it automatically
+            player.cueVideo(Config.YOUTUBE_VIDEO_CODE);
+
+            // Hiding player controls
+            player.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RECOVERY_DIALOG_REQUEST) {
+            // Retry initialization if user performed a recovery action
+            getYouTubePlayerProvider().initialize(Config.DEVELOPER_KEY, this);
+        }
+    }
+
+    private YouTubePlayer.Provider getYouTubePlayerProvider() {
+        return (YouTubePlayerView) findViewById(R.id.youtube_view);
     }
 
     private int dpToPx(int dp) {
@@ -94,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void LoadUiData() {
         if (!checkInternetState.getInstance(getApplicationContext()).isOnline()) {
-            Toast.makeText(this, "Please check your internet connection.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No Connection Found", Toast.LENGTH_SHORT).show();
         }else {
             APIService service = ApiClient.getClient().create(APIService.class);
             Call<UserUImodel> userCall = service.getUidata("test");
@@ -104,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                     if (response.body().getStatus()) {
 
 
-                       // Log.d("mytags",""+response.body().getUserData().getUserShow().getSubjectShow());
+                        // Log.d("mytags",""+response.body().getUserData().getUserShow().getSubjectShow());
                         if (!response.body().getUserData().getUserShow().getSubjectShow().equals("1")){
                             linearSubjects.setVisibility(View.GONE);
                         }else{
@@ -131,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                         if (!response.body().getUserData().getUserShow().getQuizShow().equals("1")){
                             linearQuiz.setVisibility(View.GONE);
                         }else{
-                            quizSubjectName.setText(response.body().getUserData().getQuizShow().getSubject_name());
+                            quizSubjectName.setText(response.body().getUserData().getQuizShow().getSubjectName());
                             quizQus.setText(response.body().getUserData().getQuizShow().getQuestion());
                             radioButton1.setText(response.body().getUserData().getQuizShow().getOption1());
                             radioButton2.setText(response.body().getUserData().getQuizShow().getOption2());
@@ -140,7 +209,13 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         if (!response.body().getUserData().getUserShow().getAllvideoShow().equals("1")){
-
+                            linearImages.setVisibility(View.GONE);
+                        }else {
+                            for (int i = 0; i <response.body().getUserData().getVideoAll().size() ; i++) {
+                               // Log.d("mytags","http://192.168.1.4/gcfapp/"+response.body().getUserData().getVideoAll().get(i).getSubImg());
+                                videoArrayList.add(new VideoAll(response.body().getUserData().getVideoAll().get(i).getVideoid(),response.body().getUserData().getVideoAll().get(i).getImagePath(),response.body().getUserData().getVideoAll().get(i).getName(),response.body().getUserData().getVideoAll().get(i).getInstitute(),response.body().getUserData().getVideoAll().get(i).getViews(),response.body().getUserData().getVideoAll().get(i).getCourse()));
+                                videoListAdapter.notifyDataSetChanged();
+                            }
                         }
 
                     }else{

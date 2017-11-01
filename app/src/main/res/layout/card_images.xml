@@ -32,7 +32,7 @@
                 />
 
             <TextView
-                android:id="@+id/propertyPrice"
+                android:id="@+id/videoTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4 min"

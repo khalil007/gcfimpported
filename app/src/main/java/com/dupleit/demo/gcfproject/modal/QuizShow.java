@@ -27,18 +27,9 @@ public class QuizShow {
     @SerializedName("correct")
     @Expose
     private String correct;
-
-    public String getSubject_name() {
-        return subject_name;
-    }
-
-    public void setSubject_name(String subject_name) {
-        this.subject_name = subject_name;
-    }
-
     @SerializedName("subject_name")
     @Expose
-    private String subject_name;
+    private String subjectName;
 
     public String getQuesId() {
         return quesId;
@@ -94,6 +85,14 @@ public class QuizShow {
 
     public void setCorrect(String correct) {
         this.correct = correct;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
 }
