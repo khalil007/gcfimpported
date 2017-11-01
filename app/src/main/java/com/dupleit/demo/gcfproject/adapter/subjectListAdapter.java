@@ -1,7 +1,5 @@
 package com.dupleit.demo.gcfproject.adapter;
 
-
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,9 +26,7 @@ public class subjectListAdapter extends RecyclerView.Adapter<subjectListAdapter.
             super(itemView);
             image = (CircleImageView) itemView.findViewById(R.id.imageSubject);
         }
-
     }
-
 
     public subjectListAdapter(Context context, List<Subject> playlists) {
         this.context = context;
@@ -46,8 +42,7 @@ public class subjectListAdapter extends RecyclerView.Adapter<subjectListAdapter.
     @Override
     public void onBindViewHolder(SearchListViewHolder holder, int position) {
         Subject userObject = playlists.get(position);
-
-        Glide.with(context).load(userObject.getSubImg()).into(holder.image);
+        Glide.with(context).load("http://192.168.1.4/gcfapp/"+userObject.getSubImg()).into(holder.image);
     }
 
 

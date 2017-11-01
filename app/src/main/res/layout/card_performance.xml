@@ -27,6 +27,7 @@
             android:layout_weight="1"
             android:paddingRight="4dp"
             android:textSize="16dp"
+            android:id="@+id/textLine"
             android:text="You have shown 12.4% improvement in score over last 5 test"/>
         <LinearLayout
             android:layout_width="match_parent"

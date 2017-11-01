@@ -10,6 +10,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dupleit.demo.gcfproject.Network.APIService;
@@ -44,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
     GridLayoutManager gridLayout;
     subjectListAdapter mAdapter;
 
+    @BindView(R.id.tvPerformanceInPercent)
+    TextView tvPerformanceInPercent;
+
+    @BindView(R.id.textLine)
+            TextView textLine;
     ArrayList<Subject> subjectArrayList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +84,12 @@ public class MainActivity extends AppCompatActivity {
                     if (response.body().getStatus()) {
 
 
-                        Log.d("mytags",""+response.body().getUserData().getUserShow().getSubjectShow());
+                       // Log.d("mytags",""+response.body().getUserData().getUserShow().getSubjectShow());
                         if (!response.body().getUserData().getUserShow().getSubjectShow().equals("1")){
                             linearSubjects.setVisibility(View.GONE);
                         }else{
                             for (int i = 0; i <response.body().getUserData().getSubject().size() ; i++) {
+                                Log.d("mytags","http://192.168.1.4/gcfapp/"+response.body().getUserData().getSubject().get(i).getSubImg());
                                 subjectArrayList.add(new Subject(response.body().getUserData().getSubject().get(i).getSubId(),response.body().getUserData().getSubject().get(i).getSubImg(),response.body().getUserData().getSubject().get(i).getSubName(),response.body().getUserData().getSubject().get(i).getStatus()));
                                 mAdapter.notifyDataSetChanged();
                             }
@@ -97,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
                         if (!response.body().getUserData().getUserShow().getPerformanceShow().equals("1")){
                             linearPerformance.setVisibility(View.GONE);
                         }else{
-
+                            tvPerformanceInPercent.setText(response.body().getUserData().getPerformance().getPerformance()+"%");
+                            textLine.setText("You have shown "+response.body().getUserData().getPerformance().getPerformance()+"% improvement in score over last 5 test");
                         }
 
                         if (!response.body().getUserData().getUserShow().getQuizShow().equals("1")){
