@@ -10,6 +10,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.linearPerformance)
     LinearLayout linearPerformance;
 
+    @BindView(R.id.linearQuiz)
+    LinearLayout linearQuiz;
+
     @BindView(R.id.recyclerSubjects)
     RecyclerView recyclerSubjects;
     GridLayoutManager gridLayout;
@@ -48,8 +52,24 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.tvPerformanceInPercent)
     TextView tvPerformanceInPercent;
 
-    @BindView(R.id.textLine)
-            TextView textLine;
+    @BindView(R.id.textLine) TextView textLine;
+    @BindView(R.id.quizQus) TextView quizQus;
+    @BindView(R.id.radioButton1)
+    RadioButton radioButton1;
+
+    @BindView(R.id.radioButton2)
+    RadioButton radioButton2;
+
+    @BindView(R.id.radioButton3)
+    RadioButton radioButton3;
+
+    @BindView(R.id.radioButton4)
+    RadioButton radioButton4;
+
+    @BindView(R.id.quizSubjectName)
+    TextView quizSubjectName;
+
+
     ArrayList<Subject> subjectArrayList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         gridLayout = new GridLayoutManager(getApplicationContext(),3);
         recyclerSubjects.setLayoutManager(gridLayout);
-        recyclerSubjects.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerSubjects.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(10), true));
         recyclerSubjects.setItemAnimator(new DefaultItemAnimator());
         recyclerSubjects.setHasFixedSize(true);
         mAdapter = new subjectListAdapter(getApplicationContext(), subjectArrayList);
@@ -74,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void LoadUiData() {
         if (!checkInternetState.getInstance(getApplicationContext()).isOnline()) {
-            Toast.makeText(this, "No Connection Found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please check your internet connection.", Toast.LENGTH_SHORT).show();
         }else {
             APIService service = ApiClient.getClient().create(APIService.class);
             Call<UserUImodel> userCall = service.getUidata("test");
@@ -109,7 +129,14 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         if (!response.body().getUserData().getUserShow().getQuizShow().equals("1")){
-
+                            linearQuiz.setVisibility(View.GONE);
+                        }else{
+                            quizSubjectName.setText(response.body().getUserData().getQuizShow().getSubject_name());
+                            quizQus.setText(response.body().getUserData().getQuizShow().getQuestion());
+                            radioButton1.setText(response.body().getUserData().getQuizShow().getOption1());
+                            radioButton2.setText(response.body().getUserData().getQuizShow().getOption2());
+                            radioButton3.setText(response.body().getUserData().getQuizShow().getOption3());
+                            radioButton4.setText(response.body().getUserData().getQuizShow().getOption4());
                         }
 
                         if (!response.body().getUserData().getUserShow().getAllvideoShow().equals("1")){

@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#93BF97</color>
     <color name="colorPrimaryDark">#7e9f81</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#93BF97</color>
     <color name="activityBackground">#F8F8F8</color>
 
 </resources>

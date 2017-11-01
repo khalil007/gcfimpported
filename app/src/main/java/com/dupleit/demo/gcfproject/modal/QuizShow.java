@@ -28,6 +28,18 @@ public class QuizShow {
     @Expose
     private String correct;
 
+    public String getSubject_name() {
+        return subject_name;
+    }
+
+    public void setSubject_name(String subject_name) {
+        this.subject_name = subject_name;
+    }
+
+    @SerializedName("subject_name")
+    @Expose
+    private String subject_name;
+
     public String getQuesId() {
         return quesId;
     }

@@ -6,7 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
         android:background="@color/activityBackground">
 
         <LinearLayout
@@ -52,7 +51,6 @@
                 android:textSize="16dp" />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerSubjects"
-                android:layout_below="@+id/LLHome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -74,7 +72,39 @@
             android:id="@+id/linearPerformance">
             <include layout="@layout/card_performance" />
 
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:id="@+id/linearQuiz">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:text="QUIZ OF THE DAY"
+                android:textColor="#000"
+                android:layout_marginBottom="12dp"
+                android:textSize="16dp" />
+            <include layout="@layout/card_quiz" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:id="@+id/linearImages">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerImages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:scrollbars="none" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
