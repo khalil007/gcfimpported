@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
     @BindView(R.id.tvPerformanceInPercent)
     TextView tvPerformanceInPercent;
 
-    @BindView(R.id.youtube_view)
-    YouTubePlayerSupportFragment youtubeFrag;
+    /*@BindView(R.id.youtube_view)
+    YouTubePlayerView youTubeView;*/
     private static final int RECOVERY_DIALOG_REQUEST = 1;
 
     @BindView(R.id.linearQuiz)
@@ -111,8 +111,8 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
         // Initializing video player with developer key
         youTubeView.initialize(Config.DEVELOPER_KEY, this);*/
 
-        youtubeFrag = (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_view);
-        youtubeFrag.initialize(Config.DEVELOPER_KEY, this);
+        YouTubePlayerSupportFragment frag = (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_view);
+        frag.initialize(Config.DEVELOPER_KEY, this);
 
         videoListAdapter = new VideoListAdapter(getApplicationContext(),videoArrayList);
 
