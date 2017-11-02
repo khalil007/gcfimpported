@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dupleit.demo.gcfproject.R;
+import com.dupleit.demo.gcfproject.helper.Config;
 import com.dupleit.demo.gcfproject.modal.Subject;
 import com.dupleit.demo.gcfproject.modal.VideoAll;
 
@@ -52,7 +53,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Sear
     public void onBindViewHolder(SearchListViewHolder holder, int position) {
         VideoAll userObject = playlists.get(position);
 
-        Glide.with(context).load("http://192.168.1.4/gcfapp/"+userObject.getImagePath()).into(holder.image);
+        Glide.with(context).load(Config.Web_path+userObject.getImagePath()).into(holder.image);
         holder.couse.setText(userObject.getCourse());
         holder.videoTime.setText("4 min");
         holder.userviews.setText(userObject.getViews());

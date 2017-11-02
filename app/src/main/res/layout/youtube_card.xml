@@ -1,44 +1,67 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
-
-
 <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
-        android:layout_width="match_parent"
-        android:layout_height="380dp"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/card_margin"
-        android:elevation="3dp"
-        android:padding="40dip"
-        android:orientation="horizontal"
-        card_view:cardCornerRadius="@dimen/card_album_radius">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardUseCompatPadding="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    card_view:cardCornerRadius="0dp"
+    >
 
-
-        <com.google.android.youtube.player.YouTubePlayerView
-        android:id="@+id/youtube_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp" />
-
+    <!--   Recycler View Item Row   -->
     <LinearLayout
+        android:id="@+id/propertyCard"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="#fff"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="220dp" >
+
+            <ImageView
+                android:id="@+id/propertyImage"
+                android:layout_width="fill_parent"
+                android:layout_height="220dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:scaleType="fitXY"
+                android:background="#ececec"
+                />
+
+            <TextView
+                android:id="@+id/videoTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4 min"
+                android:visibility="visible"
+                android:textColor="#FFF"
+                android:layout_alignParentBottom="true"
+                android:padding="7dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
+                android:gravity="end|left" />
+
+        </RelativeLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="210dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="CIRCULAR MOTION"
                 android:textColor="#313030"
                 android:background="#fff"
-                android:textSize="23dp"
+                android:textSize="20dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="1dp"
+
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,20 +70,15 @@
                 <TextView
                     android:id="@+id/profName"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="by Prof.Shiv Moorthy"
                     android:textColor="#000"
                     android:background="#fff"
-                    android:textSize="18dp"
+                    android:textSize="16dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="3dp"
                     />
-                <ImageView android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/ic_star"
-                   />
             </LinearLayout>
 
 
@@ -69,50 +87,50 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:id="@+id/propertyOwnerLayout"
-            android:layout_marginTop="280dp"
-            >
-        <LinearLayout
-            android:id="@+id/thumbnail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dip"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="10dip">
-
-            <ImageView android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/ic_aakash"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/Rl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="80dp">
-
-            <TextView
-                android:id="@+id/ownerName"
+            android:layout_marginTop="4dp"
+            android:id="@+id/propertyOwnerLayout">
+            <LinearLayout
+                android:id="@+id/thumbnail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aakash Institute"
-                android:textColor="#252323"
-                android:typeface="sans"
-                android:textSize="19dip"
-                android:gravity="center" />
-            <TextView
-                android:id="@+id/ownerType"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#565656"
-                android:layout_marginTop="25dp"
-                android:textSize="16dip"
-                android:text="46536 views" />
-        </RelativeLayout>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+                android:padding="3dip"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="10dip">
 
-</RelativeLayout>
+                <ImageView android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_action_name"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/Rl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="80dp">
+
+                <TextView
+                    android:id="@+id/ownerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Aakash Institute"
+                    android:textColor="#252323"
+                    android:typeface="sans"
+                    android:textSize="19dip"
+                    android:gravity="center" />
+                <TextView
+                    android:id="@+id/ownerType"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#565656"
+                    android:layout_marginTop="25dp"
+                    android:textSize="16dip"
+                    android:text="46536 views" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

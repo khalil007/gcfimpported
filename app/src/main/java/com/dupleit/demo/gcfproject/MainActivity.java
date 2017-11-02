@@ -178,7 +178,7 @@ public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.O
                             linearSubjects.setVisibility(View.GONE);
                         }else{
                             for (int i = 0; i <response.body().getUserData().getSubject().size() ; i++) {
-                                Log.d("mytags","http://192.168.1.4/gcfapp/"+response.body().getUserData().getSubject().get(i).getSubImg());
+                                Log.d("mytags",Config.Web_path+response.body().getUserData().getSubject().get(i).getSubImg());
                                 subjectArrayList.add(new Subject(response.body().getUserData().getSubject().get(i).getSubId(),response.body().getUserData().getSubject().get(i).getSubImg(),response.body().getUserData().getSubject().get(i).getSubName(),response.body().getUserData().getSubject().get(i).getStatus()));
                                 mAdapter.notifyDataSetChanged();
                             }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.dupleit.demo.gcfproject.R;
+import com.dupleit.demo.gcfproject.helper.Config;
 import com.dupleit.demo.gcfproject.modal.Subject;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class subjectListAdapter extends RecyclerView.Adapter<subjectListAdapter.
     @Override
     public void onBindViewHolder(SearchListViewHolder holder, int position) {
         Subject userObject = playlists.get(position);
-        Glide.with(context).load("http://192.168.1.4/gcfapp/"+userObject.getSubImg()).into(holder.image);
+        Glide.with(context).load(Config.Web_path+userObject.getSubImg()).into(holder.image);
     }
 
 
