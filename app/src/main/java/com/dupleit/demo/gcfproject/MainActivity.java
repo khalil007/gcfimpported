@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
 
                         if (response.body().getUserData().getUserShow().getVideoShow().equals("1")){
                             linearVideoCard.setVisibility(View.VISIBLE);
-                        }
+                        } 
 
                         if (response.body().getUserData().getUserShow().getPerformanceShow().equals("1")){
                             linearPerformance.setVisibility(View.VISIBLE);
