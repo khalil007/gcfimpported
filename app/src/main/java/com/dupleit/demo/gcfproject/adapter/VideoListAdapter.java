@@ -56,7 +56,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Sear
         Glide.with(context).load(Config.Web_path+userObject.getImagePath()).into(holder.image);
         holder.couse.setText(userObject.getCourse());
         holder.videoTime.setText("4 min");
-        holder.userviews.setText(userObject.getViews());
+        holder.userviews.setText(userObject.getViews()+" views");
         holder.institute.setText(userObject.getInstitute());
         holder.name.setText("by Prof. "+userObject.getName());
 
