@@ -37,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="gone"
             android:id="@+id/linearSubjects">
 
             <TextView
@@ -64,6 +65,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
+            android:visibility="gone"
             android:id="@+id/linearyoutube">
             <include layout="@layout/youtube_card" />
 
@@ -74,6 +76,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
+            android:visibility="gone"
             android:id="@+id/linearPerformance">
 
             <include layout="@layout/card_performance" />
@@ -85,6 +88,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
+            android:visibility="gone"
             android:id="@+id/linearQuiz">
 
             <TextView
@@ -102,6 +106,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
+            android:visibility="gone"
             android:id="@+id/linearImages">
 
 

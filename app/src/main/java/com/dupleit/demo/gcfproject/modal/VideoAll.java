@@ -6,15 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class VideoAll {
 
-    public VideoAll(String videoid, String imagePath, String name, String institute, String views, String course) {
-        this.videoid = videoid;
-        this.imagePath = imagePath;
-        this.name = name;
-        this.institute = institute;
-        this.views = views;
-        this.course = course;
-    }
-
     @SerializedName("videoid")
     @Expose
     private String videoid;
@@ -30,20 +21,18 @@ public class VideoAll {
     @SerializedName("views")
     @Expose
     private String views;
-
     @SerializedName("course")
     @Expose
     private String course;
 
-    public String getCourse() {
-        return course;
-    }
-
-    public void setCourse(String course) {
+    public VideoAll(String videoid, String imagePath, String name, String institute, String views, String course) {
+        this.videoid = videoid;
+        this.imagePath = imagePath;
+        this.name = name;
+        this.institute = institute;
+        this.views = views;
         this.course = course;
     }
-
-
 
     public String getVideoid() {
         return videoid;
@@ -83,6 +72,14 @@ public class VideoAll {
 
     public void setViews(String views) {
         this.views = views;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 
 }

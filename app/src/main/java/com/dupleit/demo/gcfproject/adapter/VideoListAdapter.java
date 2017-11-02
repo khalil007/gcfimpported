@@ -11,12 +11,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dupleit.demo.gcfproject.R;
 import com.dupleit.demo.gcfproject.helper.Config;
-import com.dupleit.demo.gcfproject.modal.Subject;
 import com.dupleit.demo.gcfproject.modal.VideoAll;
 
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.SearchListViewHolder>{
 

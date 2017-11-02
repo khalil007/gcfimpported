@@ -6,6 +6,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class Subject {
 
+    public Subject(String subId, String subImg, String subName, String status) {
+        this.subId = subId;
+        this.subImg = subImg;
+        this.subName = subName;
+        this.status = status;
+    }
+
     @SerializedName("sub_id")
     @Expose
     private String subId;
@@ -18,13 +25,6 @@ public class Subject {
     @SerializedName("status")
     @Expose
     private String status;
-
-    public Subject(String subId, String subImg, String subName, String status) {
-        this.subId = subId;
-        this.subImg = subImg;
-        this.subName = subName;
-        this.status = status;
-    }
 
     public String getSubId() {
         return subId;

@@ -7,45 +7,21 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserData {
 
-    @SerializedName("subject")
-    @Expose
-    private List<Subject> subject = null;
-    @SerializedName("performance")
-    @Expose
-    private Performance performance;
-    @SerializedName("quiz_show")
-    @Expose
-    private QuizShow quizShow;
     @SerializedName("userShow")
     @Expose
     private UserShow userShow;
+    @SerializedName("subject")
+    @Expose
+    private List<Subject> subject = null;
     @SerializedName("VideoAll")
     @Expose
     private List<VideoAll> videoAll = null;
-
-    public List<Subject> getSubject() {
-        return subject;
-    }
-
-    public void setSubject(List<Subject> subject) {
-        this.subject = subject;
-    }
-
-    public Performance getPerformance() {
-        return performance;
-    }
-
-    public void setPerformance(Performance performance) {
-        this.performance = performance;
-    }
-
-    public QuizShow getQuizShow() {
-        return quizShow;
-    }
-
-    public void setQuizShow(QuizShow quizShow) {
-        this.quizShow = quizShow;
-    }
+    @SerializedName("performance")
+    @Expose
+    private List<Performance> performance = null;
+    @SerializedName("quiz_show")
+    @Expose
+    private List<QuizShow> quizShow = null;
 
     public UserShow getUserShow() {
         return userShow;
@@ -55,12 +31,36 @@ public class UserData {
         this.userShow = userShow;
     }
 
+    public List<Subject> getSubject() {
+        return subject;
+    }
+
+    public void setSubject(List<Subject> subject) {
+        this.subject = subject;
+    }
+
     public List<VideoAll> getVideoAll() {
         return videoAll;
     }
 
     public void setVideoAll(List<VideoAll> videoAll) {
         this.videoAll = videoAll;
+    }
+
+    public List<Performance> getPerformance() {
+        return performance;
+    }
+
+    public void setPerformance(List<Performance> performance) {
+        this.performance = performance;
+    }
+
+    public List<QuizShow> getQuizShow() {
+        return quizShow;
+    }
+
+    public void setQuizShow(List<QuizShow> quizShow) {
+        this.quizShow = quizShow;
     }
 
 }
