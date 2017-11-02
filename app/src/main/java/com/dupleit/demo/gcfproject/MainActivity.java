@@ -29,6 +29,7 @@ import com.dupleit.demo.gcfproject.modal.VideoAll;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 
@@ -40,12 +41,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
+public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener {
 
     @BindView(R.id.linearSubjects)
     LinearLayout linearSubjects;
 
-    @BindView(R.id.linearVideoCard)
+    @BindView(R.id.linearyoutube)
     LinearLayout linearVideoCard;
 
     @BindView(R.id.linearPerformance)
@@ -60,7 +61,7 @@ public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.O
     TextView tvPerformanceInPercent;
 
     @BindView(R.id.youtube_view)
-    YouTubePlayerView youTubeView;
+    YouTubePlayerSupportFragment youtubeFrag;
     private static final int RECOVERY_DIALOG_REQUEST = 1;
 
     @BindView(R.id.linearQuiz)
@@ -105,10 +106,13 @@ public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.O
         mAdapter = new subjectListAdapter(getApplicationContext(), subjectArrayList);
         recyclerSubjects.setAdapter(mAdapter);
 
-        youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
+       /* youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
 
         // Initializing video player with developer key
-        youTubeView.initialize(Config.DEVELOPER_KEY, this);
+        youTubeView.initialize(Config.DEVELOPER_KEY, this);*/
+
+        youtubeFrag = (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_view);
+        youtubeFrag.initialize(Config.DEVELOPER_KEY, this);
 
         videoListAdapter = new VideoListAdapter(getApplicationContext(),videoArrayList);
 
@@ -186,8 +190,6 @@ public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.O
 
                         if (!response.body().getUserData().getUserShow().getVideoShow().equals("1")){
                             linearVideoCard.setVisibility(View.GONE);
-                        }else{
-
                         }
 
                         if (!response.body().getUserData().getUserShow().getPerformanceShow().equals("1")){
