@@ -48,6 +48,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.dupleit.demo.gcfproject.helper.checkInternetState.context;
+
 public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener {
 
     @BindView(R.id.linearSubjects) LinearLayout linearSubjects;
@@ -204,7 +206,32 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
                         * img 5
                         *
                         */
-                        androidMain.removeViewAt(Integer.parseInt(response.body().getUserData().getUserShow().getPerPos()));
+
+                        androidMain.removeViewAt(1);
+                        androidMain.removeViewAt(2);
+                        androidMain.removeViewAt(3);
+                        androidMain.removeViewAt(4);
+                        androidMain.removeViewAt(5);
+
+                        LayoutInflater inflater = LayoutInflater.from(context);
+                        View inflatedLayout= inflater.inflate(R.layout.subjectxml, androidMain, false);
+                        androidMain.addView(inflatedLayout,Integer.parseInt(response.body().getUserData().getUserShow().getSubPos()));
+
+                        LayoutInflater inflater1 = LayoutInflater.from(context);
+                        View inflatedLayout1= inflater1.inflate(R.layout.youtubexml, androidMain, false);
+                        androidMain.addView(inflatedLayout1,Integer.parseInt(response.body().getUserData().getUserShow().getVideoPos()));
+
+                        LayoutInflater inflater3 = LayoutInflater.from(context);
+                        View inflatedLayout3= inflater3.inflate(R.layout.performancexml, androidMain, false);
+                        androidMain.addView(inflatedLayout3,Integer.parseInt(response.body().getUserData().getUserShow().getPerPos()));
+
+                        LayoutInflater inflater4 = LayoutInflater.from(context);
+                        View inflatedLayout4= inflater4.inflate(R.layout.quizxml, androidMain, false);
+                        androidMain.addView(inflatedLayout4,Integer.parseInt(response.body().getUserData().getUserShow().getQuizPos()));
+
+                        LayoutInflater inflater5 = LayoutInflater.from(context);
+                        View inflatedLayout5 = inflater5.inflate(R.layout.imagesxml, androidMain, false);
+                        androidMain.addView(inflatedLayout5,Integer.parseInt(response.body().getUserData().getUserShow().getVideoallPos()));
 
                         // Log.d("mytags",""+response.body().getUserData().getUserShow().getSubjectShow());
                         if (response.body().getUserData().getUserShow().getSubjectShow().equals("1")) {
