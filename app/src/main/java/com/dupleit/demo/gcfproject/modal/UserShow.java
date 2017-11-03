@@ -24,6 +24,21 @@ public class UserShow {
     @SerializedName("allvideo_show")
     @Expose
     private String allvideoShow;
+    @SerializedName("sub_pos")
+    @Expose
+    private String subPos;
+    @SerializedName("video_pos")
+    @Expose
+    private String videoPos;
+    @SerializedName("videoall_pos")
+    @Expose
+    private String videoallPos;
+    @SerializedName("per_pos")
+    @Expose
+    private String perPos;
+    @SerializedName("quiz_pos")
+    @Expose
+    private String quizPos;
 
     public String getId() {
         return id;
@@ -71,6 +86,46 @@ public class UserShow {
 
     public void setAllvideoShow(String allvideoShow) {
         this.allvideoShow = allvideoShow;
+    }
+
+    public String getSubPos() {
+        return subPos;
+    }
+
+    public void setSubPos(String subPos) {
+        this.subPos = subPos;
+    }
+
+    public String getVideoPos() {
+        return videoPos;
+    }
+
+    public void setVideoPos(String videoPos) {
+        this.videoPos = videoPos;
+    }
+
+    public String getVideoallPos() {
+        return videoallPos;
+    }
+
+    public void setVideoallPos(String videoallPos) {
+        this.videoallPos = videoallPos;
+    }
+
+    public String getPerPos() {
+        return perPos;
+    }
+
+    public void setPerPos(String perPos) {
+        this.perPos = perPos;
+    }
+
+    public String getQuizPos() {
+        return quizPos;
+    }
+
+    public void setQuizPos(String quizPos) {
+        this.quizPos = quizPos;
     }
 
 }
