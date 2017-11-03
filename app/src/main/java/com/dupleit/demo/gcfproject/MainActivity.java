@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,10 +14,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,13 +39,8 @@ import com.dupleit.demo.gcfproject.modal.VideoAll;
 import com.dupleit.demo.gcfproject.modal.VideosingleAll;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-import com.google.android.youtube.player.YouTubePlayerView;
-
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
     @BindView(R.id.linearPerformance) LinearLayout linearPerformance;
     @BindView(R.id.recyclerSubjects) RecyclerView recyclerSubjects;
     @BindView(R.id.recyclerYoutube) RecyclerView recyclerYoutube;
-
+    @BindView(R.id.androidMain) LinearLayout androidMain;
+    @BindView(R.id.userNameRelative) RelativeLayout userNameRelative;
     @BindView(R.id.tvPerformanceInPercent) TextView tvPerformanceInPercent;
     @BindView(R.id.linearQuiz) LinearLayout linearQuiz;
     @BindView(R.id.textLine) TextView textLine;
@@ -67,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
     @BindView(R.id.quizSubjectName) TextView quizSubjectName;
     @BindView(R.id.recyclerImages) RecyclerView recyclerImages;
     @BindView(R.id.linearImages) LinearLayout linearImages;
+    @BindView(R.id.scrollView)
+    NestedScrollView scrollView;
+
     GridLayoutManager gridLayout;
     subjectListAdapter mAdapter;
     youtubePlayAdapter adapterYoutube;
@@ -77,13 +81,14 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
     VideoListAdapter videoListAdapter;
     private static final int RECOVERY_DIALOG_REQUEST = 1;
     private ProgressDialog pDialog;
-
+    LayoutInflater layoutInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         gridLayout = new GridLayoutManager(getApplicationContext(),3);
         recyclerSubjects.setLayoutManager(gridLayout);
         recyclerSubjects.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(10), true));
@@ -146,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RECOVERY_DIALOG_REQUEST) {
             // Retry initialization if user performed a recovery action
-           // getYouTubePlayerProvider().initialize(Config.DEVELOPER_KEY, this);
+            // getYouTubePlayerProvider().initialize(Config.DEVELOPER_KEY, this);
         }
     }
 
@@ -165,9 +170,7 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
         Context ctx;
         public LongOperation(Context context) {
             this.ctx = context;
-
         }
-
 
         @Override
         protected void onPreExecute() {
@@ -176,11 +179,12 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
             pDialog.setTitle("Fetching Data");
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
-           showpDialog();
+            showpDialog();
         }
 
         @Override
         protected String doInBackground(Void... params) {
+
 
             APIService service = ApiClient.getClient().create(APIService.class);
             Call<UserUImodel> userCall = service.getUidata("test");
@@ -189,6 +193,18 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
                 public void onResponse(Call<UserUImodel> call, Response<UserUImodel> response) {
 
                     if (response.body().getStatus()) {
+
+                        //scrollView.scrollTo(0,20);
+                        /*name 0
+                        * sub 1
+                        * you 2
+                        * per 3
+                        * quiz 4
+                        * img 5
+                        *
+                        */
+                        androidMain.removeViewAt(Integer.parseInt(response.body().getUserData().getUserShow().getPerPos()));
+
                         // Log.d("mytags",""+response.body().getUserData().getUserShow().getSubjectShow());
                         if (response.body().getUserData().getUserShow().getSubjectShow().equals("1")) {
                             linearSubjects.setVisibility(View.VISIBLE);
@@ -206,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
                                 videoYoutubeArrayList.add(new VideosingleAll(response.body().getUserData().getVideosingleAll().get(i).getVideoId(),response.body().getUserData().getVideosingleAll().get(i).getVideoPath(),response.body().getUserData().getVideosingleAll().get(i).getName(),response.body().getUserData().getVideosingleAll().get(i).getInstitute(),response.body().getUserData().getVideosingleAll().get(i).getViews(),response.body().getUserData().getVideosingleAll().get(i).getCourse()));
                             }
                             adapterYoutube.notifyDataSetChanged();
-                        } 
+                        }
 
                         if (response.body().getUserData().getUserShow().getPerformanceShow().equals("1")){
                             linearPerformance.setVisibility(View.VISIBLE);

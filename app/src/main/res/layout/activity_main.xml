@@ -1,127 +1,21 @@
 <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/scrollView"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:id="@+id/androidMain"
         android:background="@color/activityBackground">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:background="#FFF">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="Welcome Abroad Karam!"
-                android:textColor="#000"
-                android:textSize="28dp"
+        <include layout="@layout/usernamexml" />
+        <include layout="@layout/subjectxml" />
+        <include layout="@layout/youtubexml" />
+        <include layout="@layout/performancexml" />
+        <include layout="@layout/quizxml" />
+        <include layout="@layout/imagesxml" />
 
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:text="Lets get your started"
-                android:textColor="#000"
-                android:textSize="24dp"
-                android:gravity="center_horizontal"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:id="@+id/linearSubjects">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Select a subject you want to study today"
-                android:textColor="#000"
-                android:paddingRight="16dp"
-                android:paddingLeft="16dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:layout_marginTop="5dp"
-                android:textSize="16dp" />
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerSubjects"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:orientation="vertical"
-
-                android:scrollbars="none" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:visibility="visible"
-            android:id="@+id/linearyoutube">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerYoutube"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:scrollbars="none" />
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:visibility="gone"
-            android:id="@+id/linearPerformance">
-
-            <include layout="@layout/card_performance" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:visibility="gone"
-            android:id="@+id/linearQuiz">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:text="QUIZ OF THE DAY"
-                android:textColor="#000"
-                android:layout_marginBottom="12dp"
-                android:textSize="16dp" />
-            <include layout="@layout/card_quiz" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:visibility="gone"
-            android:id="@+id/linearImages">
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerImages"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:scrollbars="none" />
-        </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
