@@ -13,10 +13,15 @@ import android.widget.RelativeLayout;
 
 import com.dupleit.demo.gcfproject.R;
 import com.dupleit.demo.gcfproject.helper.Config;
+import com.dupleit.demo.gcfproject.modal.VideoAll;
+import com.dupleit.demo.gcfproject.modal.VideosingleAll;
+import com.dupleit.demo.gcfproject.youtubePlayer;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
+
+import java.util.List;
 
 /**
  * Created by mandeep on 3/11/17.
@@ -25,11 +30,14 @@ import com.google.android.youtube.player.YouTubeThumbnailView;
 public class youtubePlayAdapter extends RecyclerView.Adapter<youtubePlayAdapter.VideoInfoHolder> {
 
     //these ids are the unique id for each video
-    String[] VideoID = {"P3mAtvs5Elc", "nCgQDjiotG0", "P3mAtvs5Elc"};
+   // String[] VideoID = {"P3mAtvs5Elc", "nCgQDjiotG0", "P3mAtvs5Elc"};
+    private List<VideosingleAll> playlists;
+
     Context ctx;
 
-    public youtubePlayAdapter(Context context) {
+    public youtubePlayAdapter(Context context,List<VideosingleAll> playlists) {
         this.ctx = context;
+        this.playlists = playlists;
     }
 
     @Override
@@ -58,8 +66,9 @@ public class youtubePlayAdapter extends RecyclerView.Adapter<youtubePlayAdapter.
         holder.youTubeThumbnailView.initialize(Config.DEVELOPER_KEY, new YouTubeThumbnailView.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader youTubeThumbnailLoader) {
-
-                youTubeThumbnailLoader.setVideo(VideoID[position]);
+                VideosingleAll userObject = playlists.get(position);
+                holder.playButton.setTag(position);
+                youTubeThumbnailLoader.setVideo(userObject.getVideoPath());
                 youTubeThumbnailLoader.setOnThumbnailLoadedListener(onThumbnailLoadedListener);
             }
 
@@ -72,7 +81,7 @@ public class youtubePlayAdapter extends RecyclerView.Adapter<youtubePlayAdapter.
 
     @Override
     public int getItemCount() {
-        return VideoID.length;
+        return playlists.size();
     }
 
     public class VideoInfoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -91,9 +100,12 @@ public class youtubePlayAdapter extends RecyclerView.Adapter<youtubePlayAdapter.
 
         @Override
         public void onClick(View v) {
-
-            Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity) ctx, Config.DEVELOPER_KEY, VideoID[getLayoutPosition()]);
-            ctx.startActivity(intent);
+            final int pos = (int) v.getTag();
+            String videoPath = playlists.get(pos).getVideoPath();
+            Intent startActivityIntent = new Intent(ctx, youtubePlayer.class);
+            startActivityIntent.putExtra("videoPath",videoPath);
+            startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            ctx.startActivity(startActivityIntent);
         }
     }
 }

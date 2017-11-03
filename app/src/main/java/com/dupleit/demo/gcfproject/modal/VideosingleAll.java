@@ -25,6 +25,15 @@ public class VideosingleAll {
     @Expose
     private String course;
 
+    public VideosingleAll(String videoId, String videoPath, String name, String institute, String views, String course) {
+        this.videoId = videoId;
+        this.videoPath = videoPath;
+        this.name = name;
+        this.institute = institute;
+        this.views = views;
+        this.course = course;
+    }
+
     public String getVideoId() {
         return videoId;
     }

@@ -31,6 +31,7 @@ import com.dupleit.demo.gcfproject.helper.checkInternetState;
 import com.dupleit.demo.gcfproject.modal.Subject;
 import com.dupleit.demo.gcfproject.modal.UserUImodel;
 import com.dupleit.demo.gcfproject.modal.VideoAll;
+import com.dupleit.demo.gcfproject.modal.VideosingleAll;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
     youtubePlayAdapter adapterYoutube;
     ArrayList<Subject> subjectArrayList = new ArrayList<>();
     ArrayList<VideoAll> videoArrayList= new ArrayList<>();
+    ArrayList<VideosingleAll> videoYoutubeArrayList= new ArrayList<>();
+
     VideoListAdapter videoListAdapter;
     private static final int RECOVERY_DIALOG_REQUEST = 1;
     private ProgressDialog pDialog;
@@ -103,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerYoutube.setLayoutManager(linearLayoutManager);
-        adapterYoutube=new youtubePlayAdapter(MainActivity.this);
+        adapterYoutube=new youtubePlayAdapter(getApplicationContext(),videoYoutubeArrayList);
         recyclerYoutube.setAdapter(adapterYoutube);
         recyclerYoutube.setNestedScrollingEnabled(false);
 
@@ -198,6 +201,11 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
 
                         if (response.body().getUserData().getUserShow().getVideoShow().equals("1")){
                             linearVideoCard.setVisibility(View.VISIBLE);
+                            for (int i = 0; i <response.body().getUserData().getVideosingleAll().size() ; i++) {
+                                // Log.d("mytags","http://192.168.1.4/gcfapp/"+response.body().getUserData().getVideoAll().get(i).getSubImg());
+                                videoYoutubeArrayList.add(new VideosingleAll(response.body().getUserData().getVideosingleAll().get(i).getVideoId(),response.body().getUserData().getVideosingleAll().get(i).getVideoPath(),response.body().getUserData().getVideosingleAll().get(i).getName(),response.body().getUserData().getVideosingleAll().get(i).getInstitute(),response.body().getUserData().getVideosingleAll().get(i).getViews(),response.body().getUserData().getVideosingleAll().get(i).getCourse()));
+                            }
+                            adapterYoutube.notifyDataSetChanged();
                         } 
 
                         if (response.body().getUserData().getUserShow().getPerformanceShow().equals("1")){
