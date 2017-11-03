@@ -10,15 +10,18 @@ public class UserData {
     @SerializedName("userShow")
     @Expose
     private UserShow userShow;
+    @SerializedName("performance")
+    @Expose
+    private List<Performance> performance = null;
     @SerializedName("subject")
     @Expose
     private List<Subject> subject = null;
     @SerializedName("VideoAll")
     @Expose
     private List<VideoAll> videoAll = null;
-    @SerializedName("performance")
+    @SerializedName("VideosingleAll")
     @Expose
-    private List<Performance> performance = null;
+    private List<VideosingleAll> videosingleAll = null;
     @SerializedName("quiz_show")
     @Expose
     private List<QuizShow> quizShow = null;
@@ -29,6 +32,14 @@ public class UserData {
 
     public void setUserShow(UserShow userShow) {
         this.userShow = userShow;
+    }
+
+    public List<Performance> getPerformance() {
+        return performance;
+    }
+
+    public void setPerformance(List<Performance> performance) {
+        this.performance = performance;
     }
 
     public List<Subject> getSubject() {
@@ -47,12 +58,12 @@ public class UserData {
         this.videoAll = videoAll;
     }
 
-    public List<Performance> getPerformance() {
-        return performance;
+    public List<VideosingleAll> getVideosingleAll() {
+        return videosingleAll;
     }
 
-    public void setPerformance(List<Performance> performance) {
-        this.performance = performance;
+    public void setVideosingleAll(List<VideosingleAll> videosingleAll) {
+        this.videosingleAll = videosingleAll;
     }
 
     public List<QuizShow> getQuizShow() {
