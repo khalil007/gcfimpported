@@ -24,6 +24,7 @@ import com.dupleit.demo.gcfproject.Network.APIService;
 import com.dupleit.demo.gcfproject.Network.ApiClient;
 import com.dupleit.demo.gcfproject.adapter.VideoListAdapter;
 import com.dupleit.demo.gcfproject.adapter.subjectListAdapter;
+import com.dupleit.demo.gcfproject.adapter.youtubePlayAdapter;
 import com.dupleit.demo.gcfproject.helper.Config;
 import com.dupleit.demo.gcfproject.helper.GridSpacingItemDecoration;
 import com.dupleit.demo.gcfproject.helper.checkInternetState;
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
     @BindView(R.id.linearyoutube) LinearLayout linearVideoCard;
     @BindView(R.id.linearPerformance) LinearLayout linearPerformance;
     @BindView(R.id.recyclerSubjects) RecyclerView recyclerSubjects;
+    @BindView(R.id.recyclerYoutube) RecyclerView recyclerYoutube;
+
     @BindView(R.id.tvPerformanceInPercent) TextView tvPerformanceInPercent;
     @BindView(R.id.linearQuiz) LinearLayout linearQuiz;
     @BindView(R.id.textLine) TextView textLine;
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
     @BindView(R.id.linearImages) LinearLayout linearImages;
     GridLayoutManager gridLayout;
     subjectListAdapter mAdapter;
+    youtubePlayAdapter adapterYoutube;
     ArrayList<Subject> subjectArrayList = new ArrayList<>();
     ArrayList<VideoAll> videoArrayList= new ArrayList<>();
     VideoListAdapter videoListAdapter;
@@ -85,14 +89,23 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
         mAdapter = new subjectListAdapter(getApplicationContext(), subjectArrayList);
         recyclerSubjects.setAdapter(mAdapter);
 
-        YouTubePlayerSupportFragment frag = (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_view);
-        frag.initialize(Config.DEVELOPER_KEY, this);
+        /*YouTubePlayerSupportFragment frag = (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_view);
+        frag.initialize(Config.DEVELOPER_KEY, this);*/
 
         videoListAdapter = new VideoListAdapter(getApplicationContext(),videoArrayList);
 
         recyclerImages.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
         recyclerImages.setHasFixedSize(true);
         recyclerImages.setAdapter(videoListAdapter);
+        recyclerYoutube.setHasFixedSize(false);
+
+        //to use RecycleView, you need a layout manager. default is LinearLayoutManager
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerYoutube.setLayoutManager(linearLayoutManager);
+        adapterYoutube=new youtubePlayAdapter(MainActivity.this);
+        recyclerYoutube.setAdapter(adapterYoutube);
+        recyclerYoutube.setNestedScrollingEnabled(false);
 
         if (!checkInternetState.getInstance(getApplicationContext()).isOnline()) {
             Toast.makeText(getApplicationContext(), "Please Check Your Internet Connection!", Toast.LENGTH_SHORT).show();
@@ -130,13 +143,13 @@ public class MainActivity extends AppCompatActivity implements YouTubePlayer.OnI
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RECOVERY_DIALOG_REQUEST) {
             // Retry initialization if user performed a recovery action
-            getYouTubePlayerProvider().initialize(Config.DEVELOPER_KEY, this);
+           // getYouTubePlayerProvider().initialize(Config.DEVELOPER_KEY, this);
         }
     }
 
-    private YouTubePlayer.Provider getYouTubePlayerProvider() {
+   /* private YouTubePlayer.Provider getYouTubePlayerProvider() {
         return (YouTubePlayerView) findViewById(R.id.youtube_view);
-    }
+    }*/
 
     private int dpToPx(int dp) {
         Resources r = getResources();

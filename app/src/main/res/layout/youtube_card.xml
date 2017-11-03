@@ -27,11 +27,26 @@
                 android:id="@+id/youtube_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />-->
-            <fragment
-                android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
-                android:id="@+id/youtube_view"
+            <com.google.android.youtube.player.YouTubeThumbnailView
+                android:id="@+id/youtube_thumbnail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="visible"/>
+
+            <RelativeLayout android:id="@+id/relativeLayout_over_youtube_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@android:color/transparent"
+                android:visibility="visible">
+
+                <ImageView android:id="@+id/btnYoutube_player"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_youtube"/>
+
+            </RelativeLayout>
         </RelativeLayout>
 
         <LinearLayout
